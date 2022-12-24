@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.1.min.js"></script>
+    <script src="./插槽.js"></script>
+    <link rel="stylesheet" href="./插槽.css">
+    <!-- 引入animate.css文件 -->
+    <link rel="stylesheet" href="./animate-min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"> -->
+    <!-- 引入velocity.js文件 -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/velocity/2.0.6/velocity.js"></script>
+</head>
+<body>
+    <div id="root">
+        <temp>
+            <div slot="head">headr</div>
+            <div slot="foot">foot</div>
+            <div>double1</div>
+            <div>double2</div>
+        </temp>
+    </div>
+
+    <!-- 插槽作用域 -->
+    <div id="root1">
+        <child>
+            <template slot-scope="props" >
+               <li>{{props.item}} </li>
+            </template> 
+        </child>
+    </div>
+
+    <!-- 动态组件 -->
+    <div id="root2">
+        <component :is="type"></component>
+        <button @click="handkleBtnClick">chage</button>
+    </div>
+
+    <!-- 动画效果原理 -->
+    <div id="dynamic">
+        <!-- enter-active-class="active"：调用自定义的动画设定 -->
+        <!-- appar ： 刷新页面是第一次直接调用的动画 -->
+        <!-- type="transition" : 表明动画时长与transition为准-->
+        <transition name="fade"
+        type="transition"
+        :duration="{enter: 5000, leave: 6000}"
+        appear
+        appear-active-class="animated shake fade-leave-active"
+        enter-active-class="animated swing fade-leave-active"
+        leave-active-class="animated shake fade-enter-active"
+
+        @before-enter="handleBeforeEnter"
+        @enter="handleEnter"
+        @after-enter="handleAfterEnter"
+        >
+            <div v-if="show">hello word</div>
+        </transition>
+        <button @click="handleChilk">toggle</button>
+    </div>
+
+    <div id="velocityjs">
+        
+        <transition
+       
+        @before-enter="handleBeforeEnter"
+        @enter="handleEnter"
+        @after-enter="handleAfterEnter"
+        >
+            <div v-if="show">hello word</div>
+        </transition>
+
+
+        <button @click="handleChilk">toggle</button>
+    </div>
+
+    <div id="moreComponent">
+        <!-- mode="in-out" : 多组件过渡，先进入再消失 -->
+        <transition name="componenttransition"
+        mode="in-out"
+        >
+            <!-- key值： 防止复用原有的组件 -->
+            <!-- <child-one v-if="show"></child-one>
+            <child-two v-else></child-two> -->
+            <!-- 使用动态组件实现动画 -->
+            <component :is="componentId"></component>
+        </transition>
+        <button @click="handleChilk">toggle</button>
+    </div>
+
+    <div id="listadd">
+        <transition-group name="addlist">
+            <div v-for="item of list" :key="item.id">
+                {{item.title}}
+            </div>
+        </transition-group>
+        <button @click="handleAddlist">Add</button>
+    </div>
+    
+    <div id="fengzhuang">
+        <!-- 封装动画显示 -->
+        <fades :show="show">
+            <div >封装动画</div>
+        </fades>
+        <button @click="handleChilk">toggle</button>
+    </div>
+
+</body>
+</html>

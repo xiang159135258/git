@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./set.css"> -->
+    <link rel="stylesheet" href="./小黑.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="./小黑.js"></script>
+</head>
+<body>
+    <div class="box">
+        <h2>小黑记事本</h2>
+        <br>
+        <input type="text" v-model="message[index]" @keyup.enter="getdata" class="shuru">
+        <ul><li v-for="(contant, index) in message " >第{{index+1}}个输入：{{contant}}  </li></ul>
+        <div class="clear" v-show="message.length!=0">
+            <span>{{message.length}} </span>
+            <input type="button" value="clear" @click="removedata" class="remove">
+        </div>
+    </div>
+    <section id="todoapp">
+        <header class="header">
+            <h1>小黑记事本</h1>
+            <input v-model="inputValue" @keyup.enter="add" class="new-todo" autofocus="autofocus" autocomplete="off" placeholder="请输入任务" />
+        </header>
+        
+        <section class="main">
+            <ul class="todo-list">
+                <li class="todo" v-for="(item,index) in list">
+                    <div class="view">
+                        <span class="index">{{index+1}}</span>
+                        <label>{{item}}</label>
+                        <button class="destroy" @click="remove(index)">×</button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            <span class="todo-count">
+                <strong>{{list.length}}</strong> items left
+            </span>
+            <button class="todo-clear" @click="clear">clear</button>
+            
+        </footer>
+    </section>
+<footer class="info"></footer>
+
+</body>
+</html> 

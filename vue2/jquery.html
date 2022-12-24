@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./jquery.css">
+
+</head>
+<body>
+    <input type="text" id="input">
+    <button id="btn">提交</button>
+    <ul id="list"></ul>
+
+    <div id="app">
+        <div >
+            <input type="text" v-model="todoValue">
+            <button @click="handleBtnClicks">提交</button>
+        </div>
+        <ul>
+            <li v-for="item in lists">{{item}} </li>
+         </ul>
+    </div>
+
+    <div id="app1">
+        {{fullName}}
+        <div >
+            <input type="text" v-model="todoValue">
+            <button @click="handleBtnClicks">提交</button>
+        </div>
+        <ul>
+            <todo-item :content="item"
+                        :index="index"
+                        v-for="(item, index) in lists"
+                        @delete="handleItemDelete">
+            </todo-item>
+        </ul>
+    </div>
+
+    <div id="app2">
+        <div :class="[actived]" @click="handle2click">
+            hello world!
+        </div>
+        <br>
+        <div :class="{actived2 : isActive}" @click="handle3click">
+            hello world!!
+        </div>
+        <br>
+        <div :style="styleObj" @click="handle4click">
+            hello world!!!
+        </div>
+        <div :style="[styleObj, {fontSize : '20px'}]" @click="handle4click">
+            hello world!!!
+        </div>
+        <!-- v-if 和 v-else 必须紧贴一起使用，中间不能有其他样式 -->
+        <!-- v会尽量复用就下的数据 -->
+        <div v-if="show">
+            hello world!!!  <input type="text" key="username">
+        </div>
+        <div v-else>
+            <!-- 使用key 值，使该样式唯一 ， v不会复用留下的数据 -->
+            Byb world!!!  <input type="text" key="password">
+        </div>
+        <div v-if="change === 'a'">A</div>
+        <div v-else-if="change === 'b'">B</div>
+        <div v-else>other</div>
+
+        <!-- 可遍历对象 -->
+        <template v-for="(item, key) in Info">
+            <!-- template 占位符：运行时包裹其中的样式代码，但渲染时不会显示 -->
+            <div>
+                {{ item}} --- {{key}}
+            </div>
+            <span>{{item}} </span>
+        </template>
+        
+        <template v-for="(item, index) in list">
+            <div>
+                {{ item}} --- {{index}}
+            </div>
+        </template>    
+    </div>
+
+    <div id="root">
+        <!-- ref: 表示引用 -->
+        <div ref="reference" @click="handClick">
+            点击引用
+        </div>
+        <br>
+        <counter ref="One" @change="handleClick"></counter>
+        <counter ref="Two" @change="handleClick"></counter>
+        <div>{{total}} </div>
+        <br>
+        <table>
+            <tbody>
+                <!-- is使组件能规范书写如ul里面 -->
+                <tr is="row"></tr>
+                <!-- 可能会使组件渲染成table同级，导致出错 -->
+                <row></row>
+            </tbody>           
+        </table>
+    </div>
+
+    <div id="root2">
+        <!-- 非 props 特性：夫组件向子组件传递content一定需要定义，
+            且会在渲染div时显示content内容 -->
+        <child content="hell01"></child>
+    </div>
+
+    <br>
+    <div id="root3">
+        <!-- 该click本质为自定义事件 -->
+        <childtwo @click="childclick"></childtwo>
+        <!-- @click.native 直接在父组件调用函数，减少两层调用的繁琐度 -->
+        <childtwo @click.native="childtwoclick"></childtwo>
+    </div>
+
+<br>
+    <div id="root4">
+        
+        <!-- 非父子组件间传值(Bus/总线/发布订阅模式/观察者模式) -->
+        <brochild contsnt="Zeng"></brochild>
+        <brochild contsnt="Chun"></brochild>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-2.1.1.min.js"></script>
+    <script src="./jquery.js"></script>
+</body>
+</html>

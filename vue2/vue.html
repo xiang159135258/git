@@ -5,38 +5,83 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./vue.css">
 </head>
 <body>
-    <!-- <div id="app">
-        {{message}}
-    </div>
-    <script src="https://cdn.jsdeliver.net/npm/vue2/dist/vue.js"> </script>
-    <script>
-        var app = new Vue({
-            el : '#app',
-            data: { message:'Hello World!' }
-        });
-    </script> -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
 
     <div id="app">{{ message }}
-        <h4> {{ scool.class }} {{scool.name}} </h4>
+      <!-- v-text 会把内容覆盖 只是普通文本 -->
+        <h4 v-text="contant"> {{ scool.class }} {{scool.name}} </h4>
+        <!-- v-html 可以设置html样式 -->
+        <h4 v-html="contant"> {{ scool.class }} {{scool.name}} </h4>
+        <input type="button" value="v-on指令" v-on:click="doIt">
+        <input type="button" value="v-on简写" @click="doIt">
+        <input type="button" value="v-on补充" @click="doIt1(66,111)">
+        <h2 @click="changename">{{scool.name}}</h2>
     </div>
-    
-    <script>
-      const { createApp } = Vue
-      
-      createApp({
-        data() {
-          return {
-            message: 'Hello Vue!',
-            scool : {
-                class : '5',
-                name : 'zheng'
-            }
-          }
-        }
-      }).mount('#app')
+
+
+    <!-- v-model 作用是便捷设置和获取单元素的值 -->
+    <!-- 绑定的数据   互通  表单元素值  -->
+    <div id="app5">
+      <input type="button" value="修改message" @click="setM">
+      <input type="text" v-model="message" @keyup.enter="getM">
+      <h2>{{message}} </h2>
+    </div>
+
+
+    <div id="app1">
+      <div class="input-num">
+        <button @click="sub">-</button>
+        <span>{{num}} </span>
+        <button @click="add" >+</button>
+      </div>
+    </div>
+
+
+    <div id="app2">
+      <input type="button" value="切换显示状态" @click="changeIsShow">
+      <input type="button" value="切换显示状态" @click="toggleIsShow">
+      <input type="button" value="增加年龄" @click="addAge">
+      <!-- v-show 作用是：根据真假切换元素的显示状态； 原理是修改元素的display实现显示隐藏 -->
+      <img v-show="isShow" src="./img/1.jpg" alt="">
+      <!-- v-if 作用是：根据表达式真假切换元素的显示状态； 本质是通过操纵dom 元素切换显示状态-->
+      <img v-if="isShow" src="./img/1.jpg" alt="">
+      <img v-show="age>=18" src="./img/1.jpg" alt="">
+    </div>
+
+    <div id="app3">
+      <img v-bind:src="imgSrc" alt="">
+      <!-- 简写 --><br>
+      <img :src="imgSrc" alt="" :title="imgTitle + '!!!!!!额外字符串'"
+      :class="isActive?'active':''" @click="toggleActive">
+      <br><!-- 第二种表达式 当isActive为真则显示class的样式 -->
+      <img :src="imgSrc" alt="" :title="imgTitle + '!!!!!!额外字符串'"
+      :class="{active:isActive}" @click="toggleActive">
+    </div>
+
+
+    <div id="mask">
+      <img :src="imgArr[index]" alt="">
+      <!-- 左箭头 -->
+      <a href="javascript:void(0)" v-if= "index!=0" @click="prev" class="left">
+        <img src="./img/prev.png" alt=""></a>
+      <a href="javascript:void(0)" v-if= "index<imgArr.length" @click="next" class="right">
+        <img src="./img/prev.png" alt=""></a>
+    </div> 
+
+
+    <div id="app4">
+      <input type="button" value="添加数据" @click="add">
+      <input type="button" value="移除数据" @click="remove">
+
+      <ul><li v-for="(it, index) in arr ">{{ index +1}} {{it}} </li></ul>
+      <h4 v-for="item in veg" v-bind:title="item.name">{{item.name}} </h4>
+    </div> 
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="./vue.js"> 
     </script>
     
 </body>

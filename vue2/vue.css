@@ -1,0 +1,37 @@
+.input-num button:nth-child(1){
+    float: left;
+    font-size: 25px;
+    width: 50px;
+    height: 30px;
+    border-width: 1px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: rgb(203, 198, 198);
+    color: rgb(233, 0, 0);
+}
+.input-num button:nth-child(3){
+    float: left;
+    font-size: 25px;
+    width: 50px;
+    height: 30px;
+    border-width: 1px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: rgb(203, 198, 198);
+    color: rgb(233, 0, 0);
+}
+.input-num span{
+    float: left;
+    display: block;
+    text-align: center;
+    width: 50px;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+}
+
+.active{
+    border: 5px solid rgb(21, 221, 167);
+}
+.mask a img{
+    z-index: 5;
+}
